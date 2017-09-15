@@ -15,7 +15,7 @@ browser.set_page_load_timeout(120)
 def getUrlUniversities(url, field) :
     global browser
     browser.get(url)
-    time.sleep(1)
+    time.sleep(5)
     soup = BeautifulSoup(browser.page_source, 'html.parser')
     unis = soup.find_all('tbody')[0].find_all('tr')
     list = []
@@ -39,11 +39,22 @@ def merge(l1, l2, f1, f2):
                 ans.append(i)
     return ans
 
+def writeToCSV(d, f1, f2):
+    f = open('Final.csv', 'wt')
+    writer = csv.writer(f)
+    for i in d:
+        l = [i['name'], i['country']]
+        if(f1 in i) :
+            l.append(i[f1])
+        if(f2 in i):
+            l.append(i[f2])
+        writer.writerow(l)
+    f.close()
+
+
 arch = getUrlUniversities(url, 'arch')
 comp = getUrlUniversities(url2, 'cs')
 result = merge(arch, comp, 'arch', 'cs')
-
-print(result)
-
+writeToCSV(result, 'arch', 'cs')
 
 browser.quit()
