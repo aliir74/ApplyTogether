@@ -32,16 +32,20 @@ def getUrlUniversities(url, field) :
 def merge(l1, l2, f1, f2):
     ans = l1[:]
     for i in l2:
+        b = False
         for j in range(len(l1)):
             if(i['name'] == ans[j]['name']):
-                ans[j][f1] = i[f2]
-            else:
-                ans.append(i)
+                ans[j][f2] = i[f2]
+                b = True
+                break
+        if(not b):
+            ans.append(i)
     return ans
 
 def writeToCSV(d, f1, f2):
     f = open('Final.csv', 'wt')
     writer = csv.writer(f)
+    writer.writerow(['University', 'Country', f1.capitalize(), f2.capitalize()])
     for i in d:
         l = [i['name'], i['country']]
         if(f1 in i) :
