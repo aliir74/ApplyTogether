@@ -19,11 +19,11 @@ for i in unis:
     rank = i.findChildren('span', {'class': 'rank'})[0].text
     if(rank[0] == '='):
         rank = rank[1:]
-    name = i.findChildren('a', {})[0].text
+    name = i.findChildren('td', {'class': 'uni'})[0].findChildren('a', {})[0].text
     #country = i.findChildren('img')[0]['data-original-title']
     country = None
 
-    d = {'name': name, 'country': country, 'rank': rank}
-    list.append(d)
-    print(d)
+    #d = {'name': name, 'country': country, 'rank': rank}
+    #list.append(d)
+    #print(d)
 browser.quit()
