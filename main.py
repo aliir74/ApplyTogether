@@ -20,9 +20,8 @@ for i in unis:
     if(rank[0] == '='):
         rank = rank[1:]
     name = i.findChildren('td', {'class': 'uni'})[0].findChildren('a', {})[0].text
-    #country = i.findChildren('img')[0]['data-original-title']
-    country = None
-
+    country = i.findChildren('td', {'class': 'country'})[0].findChildren('img')[0].get('alt')
+    print(country)
     #d = {'name': name, 'country': country, 'rank': rank}
     #list.append(d)
     #print(d)
