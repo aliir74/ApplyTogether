@@ -19,6 +19,14 @@ def getUrlUniversities(url, field) :
     soup = BeautifulSoup(browser.page_source, 'html.parser')
     unis = soup.find_all('tbody')[0].find_all('tr')
     list = []
+    paginate = soup.findChildren('div', {'class': 'dt-pager'})[0]
+    pageNumber = paginate.findChildren('a')[-2].text
+    print(pageNumber)
+    #button = soup.findChildren('span', {'class': 'jcf-select-opener'})[0].click()
+    button = browser.find_element_by_class_name('jcf-select-opener')
+    button.click()
+    t = browser.find_elements_by_class_name('jcf-option')
+    print(t)
     for i in unis:
         rank = i.findChildren('span', {'class': 'rank'})[0].text
         if(rank[0] == '='):
@@ -50,6 +58,8 @@ def writeToCSV(d, f1, f2):
         l = [i['name'], i['country']]
         if(f1 in i) :
             l.append(i[f1])
+        else:
+            l.append('')
         if(f2 in i):
             l.append(i[f2])
         writer.writerow(l)
